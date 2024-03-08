@@ -23,6 +23,7 @@ def main():
         return
 
     for file in files_to_be_checked:
+        print(f"**{file}**")
         file_diff = git_diff(spec.default_branch, file)
         print(get_openai_response(requirements_text, file_diff))
 
