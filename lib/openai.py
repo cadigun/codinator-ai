@@ -7,16 +7,18 @@ load_dotenv()
 # Set your API key here
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-MSG = """
-We have a list of requirements that must be satisfied by any code pull request. Additionally, we have the git diff of changes that happened in the code. Please review the changes based on the requirements and provide code review comments.
-
-Requirements:
+PROMPT_TEXT = """
+As a code reviewer, please provide help review comments for the following code changes. Focus on the following aspects:
 %s
 
-Git Diff:
+Be specific and provide actionable feedback, including line numbers and code snippets where appropriate.
+Use examples and developer references to point out best practices where necessary.
+Use a clear and friendly tone, with emojis 😊. 
+
+Here are the code changes:
 %s
 
-Please provide Code Review Comments.
+Thank you for your help!
 """
 
 def get_openai_response(requirements, git_diff):
@@ -24,7 +26,7 @@ def get_openai_response(requirements, git_diff):
         return "No requirements provided"
     if not git_diff:
         return "No git diff provided"
-    prompt = MSG % (requirements, git_diff)
+    prompt = PROMPT_TEXT % (requirements, git_diff)
     completion = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
