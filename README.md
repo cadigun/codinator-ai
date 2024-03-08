@@ -1,6 +1,6 @@
 # Codinator
 Codinator-ai is a ChatGPT-powered code review tool that uses YAML-defined requirements, written in plain human language to post comments on PRs.
-When integrated into a GitHub workflow, Codinator-ai automatically reviews each PR against these requirements and posts comments directly on the PR, highlighting any issues or deviations from the defined standards. This ensures that code meets the specified quality criteria before it is merged into the main codebase.
+When integrated into a GitHub workflow, codinator automatically reviews each PR against these requirements and posts comments directly on the PR, highlighting any issues or deviations from the defined standards. This ensures that code meets the specified quality criteria before it is merged into the main codebase.
 
 It works with all programming languages and can be customized to suit the specific requirements of your project.
 
@@ -10,7 +10,7 @@ It works with all programming languages and can be customized to suit the specif
 ## Getting Started
 ### Prerequisites
 #### Open AI API Key
-Codinator uses the OpenAI API to generate human-readable feedback. To use Codinator, you will need to sign up for an API key at [OpenAI](https://beta.openai.com/signup/).
+To use Codinator, you will need to sign up for an API key at [OpenAI](https://beta.openai.com/signup/).
 
 ## Installation
 #### 1. Clone the Codinator Repository into your project:
@@ -19,9 +19,9 @@ git clone git@github.com:cadigun/codinator-ai.git
 ```
 
 ## Setting Up the Specification File
-Codinator uses a YAML file to define the code review requirements. An example specification file is provided in the repository. 
-Make sure to update the default branch to that of your repository. You can modify the requirements to suit your project's needs.
-```angular2html
+Codinator uses a YAML file to define the code review requirements. An example specification file is provided in the repository.
+Make sure to update the default branch to that of your repository, as well as modify the requirements to suit your project's needs.
+```
 project:
   name: your_project_name
   default_branch: main
@@ -41,11 +41,16 @@ project:
 ```
 
 ## Configuring GitHub Secrets
-To use Codinator with GitHub Actions, you need to set up GitHub Secrets for environment variables. These variables can include API keys or other sensitive information required by your script.
+To use Codinator with GitHub Actions, you need to [set up GitHub Secrets for environment variables](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions?tool=webui#creating-secrets-for-a-repository).
+<img width="1159" alt="Actions_secrets_·_cadigun_codinator-ai" src="https://github.com/cadigun/codinator-ai/assets/10423381/612bb4d3-ce00-4ebc-a854-997edc80fee1">
+The environment variables you need to provide are:
+- **OPEN_API_KEY**: Your OpenAI API key.
+- **ACCESS_TOKEN_GITHUB**: Your GitHub access token with repo permissions.
+- **SPEC_FILE_PATH**: The file path to your YAML specification of code review rules (e.g., path/to/your_project/.codinator-spec-sample).
 
-For instructions on how to set up GitHub Secrets, please refer to the [GitHub documentation](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions).
 
 ## Integrating Codinator into Your GitHub Workflow
+
 #### 1. Create a Workflow YAML File:
 In the root of your repository, create a new file under `.github/workflows/` with a .yml extension. For example, see `codinator.yml` in this project's .github folder.
 #### 2. Define the Workflow:
@@ -64,6 +69,7 @@ e.g.
     run: |
         stdout=$(python path/to/your_project/codinator-ai/codinator.py | sed 's/`/\\`/g' | sed ':a;N;$!ba;s/\n/\\n/g')
 ```
+
 ## Usage
 Once the workflow is set up, Codinator will automatically run on each pull request, checking the changes against the specified requirements and providing feedback.
 
