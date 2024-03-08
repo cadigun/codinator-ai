@@ -26,19 +26,25 @@ pip install -r requirements.txt
 ```
 
 ## Setting Up the Specification File
-Codinator uses a YAML file to define the code review requirements. An example specification file is provided in the repository. You can modify this file to suit your project's needs.
+Codinator uses a YAML file to define the code review requirements. An example specification file is provided in the repository. 
+Make sure to update the default branch to that of your repository. You can modify the requirements to suit your project's needs.
 ```angular2html
 project:
   name: "project_name"
   default_branch: "main"
   files_types:
   # define the file types that will be reviewed by Codinator
+    - ".go"
     - ".java"
   requirements:
   # human readable requirements
-    - "Java files must not use any in tests"
-    - "All files must end with a newline"
-    - "All files must use spaces instead of tabs"
+    - "Class names should be in PascalCase."
+    - "Use descriptive names for test methods (e.g., shouldReturnTrueWhenConditionMet)."
+    - "Do not use matcher type of any in tests."
+    - "All files must end with a newline."
+    - "Constants should be in UPPER_SNAKE_CASE."
+    - "Provide Javadoc comments for all public classes and methods."
+    - "Each public method should have corresponding unit tests."
 ```
 
 ## Configuring GitHub Secrets

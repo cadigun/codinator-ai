@@ -1,0 +1,17 @@
+## define the spec of code review guidelines on a repository
+project:
+  name: "codinator-ai"
+  default_branch: "main"
+  files_types:
+  # define the file types that will be reviewed by Codinator
+    - ".go"
+    - ".java"
+  requirements:
+  # human readable requirements
+    - "Class names should be in PascalCase."
+    - "Use descriptive names for test methods (e.g., shouldReturnTrueWhenConditionMet)."
+    - "Do not use matcher type of any in tests."
+    - "All files must end with a newline."
+    - "Constants should be in UPPER_SNAKE_CASE."
+    - "Provide Javadoc comments for all public classes and methods."
+    - "Each public method should have corresponding unit tests."
