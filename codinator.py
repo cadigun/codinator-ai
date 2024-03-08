@@ -22,6 +22,7 @@ def main():
     changed_files = git_changed_files(spec.default_branch)
     files_to_be_checked = filter_files_by_type(changed_files, spec.files_types)
     if not files_to_be_checked:
+        print("##### Codinator review complete! :sparkles")
         logging.debug("No files to be checked. Exiting...")
         return
 
@@ -29,7 +30,7 @@ def main():
                   '\n'.join(files_to_be_checked))
 
     for file in files_to_be_checked:
-        print(f"** ------------- {file} ------------- **")
+        print(f"#### ------------- {file} -------------")
         file_diff = git_diff(spec.default_branch, file)
         print(f"{get_openai_response(requirements_text, file_diff)}\n\n")
 

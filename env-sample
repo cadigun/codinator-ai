@@ -1,7 +1,7 @@
 ## You need to add the following
 ## environment variables to your github repository secrets
 OPENAI_API_KEY=your_OPENAI_API_KEY
-ACCESS_TOKEN_GITHUB=your_github_access_token
 SPEC_FILE_PATH=your_spec_file_path
-CHAT_GPT_MODEL=your_preferred_chat_gpt_model
+CHAT_GPT_MODEL=your_preferred_chat_gpt_model # default is gpt-3.5-turbo
+CHAT_GPT_CHARACTER_LIMIT=1000 # default is 1000
 ```

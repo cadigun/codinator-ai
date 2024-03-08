@@ -38,5 +38,6 @@ def get_openai_response(requirements, git_diff):
                 "content": prompt,
             },
         ],
+        max_tokens= int(os.environ.get("CHAT_GPT_CHARACTER_LIMIT", "1000")),
     )
     return completion.choices[0].message.content
