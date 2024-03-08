@@ -8,7 +8,7 @@ load_dotenv()
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 PROMPT_TEXT = """
-As a code reviewer, please provide help review comments for the following code changes. Focus on the following aspects:
+As a code reviewer, please provide helpful review comments for the following code changes. Focus on the following aspects:
 %s
 
 Be specific and provide actionable feedback, including line numbers and code snippets where appropriate.
