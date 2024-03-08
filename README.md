@@ -4,7 +4,7 @@ When integrated into a GitHub workflow, Codinator-ai automatically reviews each 
 
 It works with all programming languages and can be customized to suit the specific requirements of your project.
 
-#### Example of Codinator-ai in action:
+#### [View sample PR of codinator-ai in action](https://github.com/cadigun/codinator-ai/pull/1)
 <img width="727" alt="Screenshot 2024-03-08 at 12 03 46 PM" src="https://github.com/cadigun/codinator-ai/assets/10423381/d3616572-a45d-4d66-8883-2170a42a0efb">
 
 ## Getting Started
