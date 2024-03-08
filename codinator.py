@@ -27,7 +27,7 @@ def main():
         logging.debug("No files to be checked. Exiting...")
         return
 
-    logging.debug(f"Files to be reviewed:'\n'.join(files_to_be_checked)")
+    logging.debug(f"Files to be reviewed:\n'\n'.join(files_to_be_checked)")
 
     for file in files_to_be_checked:
         print(f"** ------------- {file} ------------- **:")
