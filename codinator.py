@@ -23,9 +23,9 @@ def main():
         return
 
     for file in files_to_be_checked:
-        print(f"**{file}**")
+        print(f"**### Code Review Comments for {file}**:")
         file_diff = git_diff(spec.default_branch, file)
-        print(get_openai_response(requirements_text, file_diff))
+        print(f"{get_openai_response(requirements_text, file_diff)}\n\n")
 
 
 if __name__ == '__main__':
