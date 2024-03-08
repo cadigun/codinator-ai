@@ -26,6 +26,9 @@ def get_openai_response(requirements, git_diff):
         return "No requirements provided"
     if not git_diff:
         return "No git diff provided"
+    if not openai.api_key:
+        return "No OpenAI API key found"
+
     prompt = PROMPT_TEXT % (requirements, git_diff)
     completion = openai.chat.completions.create(
         model="gpt-3.5-turbo",

@@ -44,7 +44,7 @@ project:
 To use Codinator with GitHub Actions, you need to [set up GitHub Secrets for environment variables](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions?tool=webui#creating-secrets-for-a-repository).
 <img width="1159" alt="Actions_secrets_·_cadigun_codinator-ai" src="https://github.com/cadigun/codinator-ai/assets/10423381/612bb4d3-ce00-4ebc-a854-997edc80fee1">
 The environment variables you need to provide are:
-- **OPEN_API_KEY**: Your OpenAI API key.
+- **OPENAI_API_KEY**: Your OpenAI API key.
 - **ACCESS_TOKEN_GITHUB**: Your GitHub access token with repo permissions.
 - **SPEC_FILE_PATH**: The file path to your YAML specification of code review rules (e.g., path/to/your_project/.codinator-spec-sample).
 
@@ -69,6 +69,7 @@ e.g.
     run: |
         stdout=$(python path/to/your_project/codinator-ai/codinator.py | sed 's/`/\\`/g' | sed ':a;N;$!ba;s/\n/\\n/g')
 ```
+#### 5. Push your changes to the repository.
 
 ## Usage
 Once the workflow is set up, Codinator will automatically run on each pull request, checking the changes against the specified requirements and providing feedback.

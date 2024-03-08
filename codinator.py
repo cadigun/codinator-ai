@@ -10,7 +10,12 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 
 def main():
     logging.debug("Running Codinator...")
-    spec = read_spec_from_yaml(os.environ.get("SPEC_FILE_PATH" or '.codinator-spec-sample'))
+    filepath = os.environ.get("SPEC_FILE_PATH" or '.codinator-spec-sample')
+    if not filepath:
+        logging.error("No spec file found. Exiting...")
+        return
+
+    spec = read_spec_from_yaml(filepath)
     requirements_text = "\n".join(f"- {req}" for req in spec.requirements)
     logging.debug(f'Code Review Requirements:\n{requirements_text}')
 
@@ -19,14 +24,13 @@ def main():
 
     files_to_be_checked = filter_files_by_type(changed_files, spec.files_types)
     if not files_to_be_checked:
-        logging.info("No files to be checked. Exiting...")
+        logging.debug("No files to be checked. Exiting...")
         return
 
     for file in files_to_be_checked:
         print(f"**### Code Review Comments for {file}**:")
         file_diff = git_diff(spec.default_branch, file)
         print(f"{get_openai_response(requirements_text, file_diff)}\n\n")
-
 
 if __name__ == '__main__':
     main()
