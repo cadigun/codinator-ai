@@ -3,3 +3,5 @@
 OPENAI_API_KEY=your_OPENAI_API_KEY
 ACCESS_TOKEN_GITHUB=your_github_access_token
 SPEC_FILE_PATH=your_spec_file_path
+CHAT_GPT_MODEL=your_preferred_chat_gpt_model
+```

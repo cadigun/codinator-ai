@@ -47,6 +47,7 @@ The environment variables you need to provide are:
 - **OPENAI_API_KEY**: Your OpenAI API key.
 - **ACCESS_TOKEN_GITHUB**: Your GitHub access token with repo permissions.
 - **SPEC_FILE_PATH**: The file path to your YAML specification of code review rules (e.g., path/to/your_project/.codinator-spec-sample).
+- **CHAT_GPT_MODEL**: The ChatGPT model to use for generating comments. The default is `gpt-3.5-turbo`.
 
 
 ## Integrating Codinator into Your GitHub Workflow
