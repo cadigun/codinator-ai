@@ -32,6 +32,7 @@ jobs:
         id: script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SPEC_FILE_PATH: ${{ secrets.SPEC_FILE_PATH }}
         run: |
           output=$(python codinator.py)
           echo "::set-output name=result::$output"
