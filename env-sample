@@ -1,0 +1,5 @@
+## You need to add the following
+## environment variables to your github repository secrets
+OPEN_API_KEY=your_open_api_key
+ACCESS_TOKEN_GITHUB=your_github_access_token
+SPEC_FILE_PATH=your_spec_file_path
