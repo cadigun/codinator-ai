@@ -1,6 +1,6 @@
 # Codinator
 
-Codinator is a code review tool that leverages human-readable requirements specified in a YAML file to automate the code review process. By integrating Codinator into your GitHub workflow, you can ensure that your pull requests meet the specified coding standards before merging.
+Codinator-ai is a code review tool powered by chatGPT that leverages human-readable requirements specified in a YAML file to automate the code review process. By integrating Codinator into your GitHub workflow, you can ensure that your pull requests meet the specified coding standards before merging.
 
 ## Getting Started
 ### Prerequisites
@@ -61,7 +61,7 @@ Copy the content of the example workflow in this repository found in `./github/w
 Replace `path/to/codinator.py` with the actual path to the codinator.py file in your repository.
 ```
       run: |
-          output=$(python path/to/codinator.py)
+          stdout=$(path/to/codinator.py | sed ':a;N;$!ba;s/\n/\\n/g')
 ```
 
 ## Usage
