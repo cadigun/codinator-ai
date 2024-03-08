@@ -20,17 +20,16 @@ def main():
     logging.debug(f'Code Review Requirements:\n{requirements_text}')
 
     changed_files = git_changed_files(spec.default_branch)
-    # print the changed files array into line by line
-
     files_to_be_checked = filter_files_by_type(changed_files, spec.files_types)
     if not files_to_be_checked:
         logging.debug("No files to be checked. Exiting...")
         return
 
-    logging.debug(f"Files to be reviewed:\n'\n'.join(files_to_be_checked)")
+    logging.debug('Reviewing changes to the following files: \n%s',
+                  '\n'.join(files_to_be_checked))
 
     for file in files_to_be_checked:
-        print(f"** ------------- {file} ------------- **:")
+        print(f"** ------------- {file} ------------- **")
         file_diff = git_diff(spec.default_branch, file)
         print(f"{get_openai_response(requirements_text, file_diff)}\n\n")
 

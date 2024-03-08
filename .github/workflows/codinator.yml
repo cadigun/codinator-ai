@@ -33,6 +33,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SPEC_FILE_PATH: ${{ secrets.SPEC_FILE_PATH }}
+          CHAT_GPT_MODEL: ${{ secrets.CHAT_GPT_MODEL }}
         run: |
           stdout=$(python codinator.py | sed 's/`/\\`/g' | sed ':a;N;$!ba;s/\n/\\n/g')
           echo "result=$stdout" >> "$GITHUB_OUTPUT"

@@ -8,12 +8,12 @@ load_dotenv()
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 PROMPT_TEXT = """
-As a code reviewer, please provide helpful review comments for the following code changes. Focus on the following aspects:
+Please provide a thorough and technical code review on some code changes given the following guidelines:
 %s
 
-Be specific and provide actionable feedback, including line numbers and code snippets where appropriate.
-Use examples and developer references to point out best practices where necessary.
-Use a clear and friendly tone, with emojis 😊. 
+Your response must be concise, and clear, and you need to provide actionable feedback, reference line numbers and code snippets.
+Give examples and developer references to point out best practices where necessary.
+Use a friendly tone, emojis are allowed 😊. 
 
 Here are the code changes:
 %s
@@ -31,7 +31,7 @@ def get_openai_response(requirements, git_diff):
 
     prompt = PROMPT_TEXT % (requirements, git_diff)
     completion = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=os.environ.get("CHAT_GPT_MODEL") or "gpt-3.5-turbo",
         messages=[
             {
                 "role": "user",
