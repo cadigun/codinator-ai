@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 
 def main():
     logging.debug("Running Codinator...")
-    spec = read_spec_from_yaml(os.environ.get("SPEC_FILE_PATH"))
+    spec = read_spec_from_yaml(os.environ.get("SPEC_FILE_PATH" or '.codinator-spec-sample'))
     requirements_text = "\n".join(f"- {req}" for req in spec.requirements)
     logging.debug(f'Code Review Requirements:\n{requirements_text}')
 

@@ -34,15 +34,15 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SPEC_FILE_PATH: ${{ secrets.SPEC_FILE_PATH }}
         run: |
-          result=$(python codinator.py)
-          echo "::set-output name=result::$(echo "$result" | base64)"
+          stdout=$(python codinator.py | sed ':a;N;$!ba;s/\n/\\n/g')
+          echo "result=$stdout" >> "$GITHUB_OUTPUT"
 
       - name: Create comment
         uses: actions/github-script@v6
         with:
           script: |
             const issueNumber = context.issue.number;
-            output=$(echo "${{ steps.script.outputs.result }}" | base64 --decode);
+            const output = `${{ steps.script.outputs.result }}`;
             const body = `**Codinator has reviewed this PR!** Please address the below comments and push the changes. Once done, request a review from the assigned reviewer.\n${output}`;
             github.rest.issues.createComment({
               owner: context.repo.owner,
