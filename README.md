@@ -1,5 +1,5 @@
 # Codinator AI
-Codinator-ai is a ChatGPT-powered tool that automates code review and enforcement of coding standards using.
+Codinator-ai is a ChatGPT-powered tool that automates code review and enforcement of coding standards.
 It uses YAML-defined requirements written in plain human language to analyze your code changes and provides feedback directly in your pull requests.
 
 ## Examples
@@ -50,6 +50,11 @@ on:
     branches:
       - your_default_branch_name
 ```
+
+#### 4. Create a Pull Request
+Once the workflow and specification file are in place, Codinator AI will automatically run whenever a new pull request is created or updated in your repository.
+It will analyze the changes according to the rules defined in your specification file and post its findings as comments on the pull request.
+
 
 ## Support
 If you encounter any issues or have questions, please feel free to open an issue on the Codinator AI GitHub repository.
