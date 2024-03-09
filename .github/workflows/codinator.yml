@@ -1,4 +1,4 @@
-name: codinator
+name: codinator-ai
 
 on:
   pull_request:
@@ -7,44 +7,50 @@ on:
       - main
 
 jobs:
-  run_script_and_comment:
+  check_for_violations:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
         with:
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
-
-      - name: Fetch main branch
+      - name: Fetch repo main branch
         run: git fetch origin main:main
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Run Python script
+      - name: Install codinator-ai
+        uses: actions/checkout@v3
+        with:
+          repository: 'cadigun/codinator-ai'
+          path: tmp
+          ref: 'main'
+          token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
+      - name: Run codinator-ai
         id: script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SPEC_FILE_PATH: ${{ secrets.SPEC_FILE_PATH }}
           CHAT_GPT_MODEL: ${{ secrets.CHAT_GPT_MODEL }}
+          CHAT_GPT_CHARACTER_LIMIT: ${{ secrets.CHAT_GPT_CHARACTER_LIMIT }}
         run: |
-          stdout=$(python codinator.py | sed 's/`/\\`/g' | sed ':a;N;$!ba;s/\n/\\n/g')
+          rm -rf tmp/.git
+          python -m pip install --upgrade pip
+          pip install -r tmp/requirements.txt
+          stdout=$(python tmp/codinator.py | sed 's/`/\\`/g' | sed ':a;N;$!ba;s/\n/\\n/g')
           echo "result=$stdout" >> "$GITHUB_OUTPUT"
 
       - name: Create comment
         uses: actions/github-script@v6
+        env:
+          SCRIPT_OUTPUT: ${{ steps.script.outputs.result }}
         with:
           script: |
             const issueNumber = context.issue.number;
-            const output = `${{ steps.script.outputs.result }}`;
-            const body = `**Codinator has reviewed this PR!** Please address the below comments and push the changes. Once done, request a review from the assigned reviewer.\n${output}`;
+            const output = process.env.SCRIPT_OUTPUT.replace(/\\n/g, '\n');
+            const body = `**suggestions:** from codinator-ai... :sparkles: \n${output}`;
             github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
