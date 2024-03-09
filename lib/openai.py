@@ -8,7 +8,7 @@ load_dotenv()
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 PROMPT_TEXT = """
-Please provide a thorough and technical code review on some code changes given the following guidelines:
+Please provide a thorough and technical code review in less than %s words, using the following guidelines:
 %s
 
 Your response must be concise, and clear, and you need to provide actionable feedback, reference line numbers and code snippets.
@@ -29,7 +29,12 @@ def get_openai_response(requirements, git_diff):
     if not openai.api_key:
         return "No OpenAI API key found"
 
-    prompt = PROMPT_TEXT % (requirements, git_diff)
+    try:
+        max_tokens = int(os.environ.get("CHAT_GPT_CHARACTER_LIMIT", "1000"))
+    except ValueError:
+        max_tokens = 1000
+
+    prompt = PROMPT_TEXT % (max_tokens, requirements, git_diff)
     completion = openai.chat.completions.create(
         model=os.environ.get("CHAT_GPT_MODEL") or "gpt-3.5-turbo",
         messages=[
@@ -38,6 +43,6 @@ def get_openai_response(requirements, git_diff):
                 "content": prompt,
             },
         ],
-        max_tokens= int(os.environ.get("CHAT_GPT_CHARACTER_LIMIT", "1000")),
+        max_tokens=max_tokens,
     )
     return completion.choices[0].message.content
