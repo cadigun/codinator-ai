@@ -3,8 +3,9 @@ Codinator-ai is a ChatGPT-powered tool that automates code review and enforcemen
 It uses YAML-defined requirements written in plain human language to analyze your code changes and provides feedback directly in your pull requests.
 
 ## Examples
-For practical examples of how to use Codinator AI in your projects, check out the [codinator-ai-samples](https://github.com/cadigun/codinator-ai-samples/pulls) repository.
+For practical examples of how to use Codinator AI in your projects, check out the [codinator-ai-samples](https://github.com/cadigun/codinator-ai-samples/pull/1) repository.
 This repository contains sample projects and specification files to help you get started and understand how Codinator AI can be applied to your project.
+<img width="728" alt="Screenshot 2024-03-08 at 8 35 07 PM" src="https://github.com/cadigun/codinator-ai/assets/10423381/da76458b-3f15-4d5e-82ab-a61839098363">
 
 ## Prerequisites
 #### Open AI API Key
